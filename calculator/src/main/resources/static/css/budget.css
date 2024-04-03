@@ -1,0 +1,294 @@
+body {
+    background-color: rgb(255, 255, 255);
+    color: #0F1035;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 auto ;
+    max-width: 600px;
+}
+
+.page{
+
+    position: absolute;
+    top:100px;
+    left: 200px;
+    width: 590px;
+    height: 650px;
+    background-color: rgb(220, 242, 241);
+    border-top-left-radius: 60px;
+    border-radius: 60px;
+}
+
+
+
+a:visited{
+    color: white;
+}
+a:link{
+    color: white;
+}
+a:active{
+    color: #000;
+}
+
+h1{
+    background-color: rgb(54, 84, 134);
+    position: relative;
+    color: white;
+    width: 590px;
+    height: 80px;
+    bottom: 30px;
+    text-align: center;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+   
+}
+.info{
+    position: relative;
+    display:flex;
+    text-align: start;
+    width: auto;
+    height: 45px;
+    bottom: 70px;
+    left: 180px;
+    
+}
+.info2{
+    position: relative;
+    display:flex;
+    text-align: start;
+    width: auto;
+    height: 45px;
+    bottom: 100px;
+    left: 180px;
+    
+}
+
+
+.budget{
+    position: relative;
+
+    bottom: 90px;
+    text-align: start;
+ 
+    border-bottom: solid 2px black;
+}
+
+.expense{
+    position: relative;
+    display:flex;
+    background-color: rgb(220, 242, 241) ;
+    border-bottom-right-radius: 60px;
+    text-align: start;
+    width: auto;
+    height: 45px;
+    bottom: 100px;
+    
+}
+
+.total{
+    display: flex;
+    position: relative;
+    padding-top: 10px;
+    padding-left: 20px;
+    bottom: 35px;
+    text-align: start;
+    border-top: solid 2px black;
+    
+    
+}
+
+.leftover{
+    
+    display: flex;
+    position: relative;
+    left: 310px;
+    margin-top: 10px;
+    padding-top: 0px;
+    bottom: 65px;
+    text-align: start;
+
+    
+}
+
+.input1{
+
+    position: relative;
+    bottom: 10px;
+    left: 210px;
+    width: 150px;
+    height: 30px;
+}
+
+.input2{
+    position: relative;
+    top: 30px;
+    left: 15px;
+    width: 150px;
+    height: 40px;
+}
+
+.value1{
+    position: relative;
+    justify-content: center;
+    text-align: center;
+    height: 30px;
+    bottom: 60px;
+    font-size: 20px;
+}
+
+.value2{
+    position: relative;
+    justify-content: center;
+    text-align: center;
+    height: 30px;
+    bottom: 80px;
+    font-size: 20px;
+}
+
+
+.date1{
+    position: relative;
+    bottom: 10px;
+    left:230px;
+    width: 150px;
+    height: 30px;
+}
+
+.input{
+    position: relative;
+    left: 60px;
+    width: 150px;
+    height: 30px;
+    
+}
+
+.input0{
+    position: relative;
+    left: 20px;
+    width: 150px;
+    height: 30px;
+    bottom: 20px;
+}
+
+.leftvalue{
+    color: rgb(11, 176, 14) ;
+    position: relative;
+    justify-content: center;
+    text-align: center;
+    height: 40px;
+    font-size: 20px;
+    bottom: 80px;
+    left: 10px;
+    
+
+}
+
+.totvalue{
+    color: rgb(213, 36, 36) ;
+    position: relative;
+    justify-content: center;
+    text-align: center;
+    height: 40px;
+    font-size: 20px;
+    bottom: 60px;
+    left: 10px;
+}
+
+
+.deposit{
+    position: relative;
+    display:flex;
+    background-color: rgb(220, 242, 241) ;
+    text-align: start;
+    width: auto;
+    height: 55px;
+    bottom: 100px;
+    border-bottom: solid 2px black;
+
+}
+
+.date{
+    position: relative;
+    left: 85px;
+    bottom: 0px;
+    width: 150px;
+    height: 30px;
+}
+
+
+.calc{
+    position: absolute;
+    left: 400px;
+    bottom: 0px;
+    width:190px;
+    height: 66px;
+    font-size: 20px;
+    text-align: center;
+    border:none;
+    border-bottom-right-radius: 60px;
+    background-color: rgb(54, 84, 134);
+    box-shadow:
+    inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 3px rgba(15, 16, 53, 0.6);
+    color: white;
+    cursor: pointer;
+}
+
+.calc:active{
+    background-color: black;
+    color: white;
+}
+
+.return{
+    position: absolute;
+    left: 195px;
+    bottom: 0px;
+    width:190px;
+    height: 66px;
+    font-size: 20px;
+    text-align: center;
+    border:none;
+    background-color: rgb(54, 84, 134);
+    box-shadow:
+    inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 3px rgba(15, 16, 53, 0.6);
+    color: white;
+    cursor: pointer;
+}
+
+.return:active{
+    background-color: black;
+    color: white;
+}
+
+.reset{
+    position: absolute;
+    bottom: 0px;
+    width:180px;
+    height: 66px;
+    font-size: 20px;
+    text-align: center;
+    border:none;
+    border-bottom-left-radius: 60px;
+    background-color: rgb(54, 84, 134);
+    box-shadow:
+    inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 3px rgba(15, 16, 53, 0.6);
+    color: white;
+    cursor: pointer;
+}
+
+.reset:active{
+    background-color: black;
+    color: white;
+}
+
+#myPlot{
+    position:relative;
+    left:600px;
+    bottom: 650px;
+    
+}
+

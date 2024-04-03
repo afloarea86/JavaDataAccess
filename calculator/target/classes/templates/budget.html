@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link href="../static/css/budget.css" type="text/css" rel="stylesheet" th:href="@{/css/budget.css}">
+    <title>Budget Calculator</title>
+   
+</head>
+<body background="login_background.jpg">
+<div class="page">
+    <h1>BUDGET CALCULATOR</h1>
+    <div class="info">
+        <p class="input" >AMOUNT</p>
+        <p class="date">MONTH</p>
+    </div>
+        <div class="budget">
+            <div class="input2">INCOME :</div>
+            <input type="number" id="income" class="input1" placeholder="£:">
+            <input type="month" class="date1">
+        </div>
+        <div class="info2">
+            <p class="input" >AMOUNT</p>
+            <p class="date">DUE DATE</p>
+        </div>
+        <div class="expense">
+            <p class="input0">MORTGAGE :</p>
+            <input type="number" id="exp1" class="input" placeholder="£:">
+            <input type="date"  class="date">
+        </div>
+        <div class="expense">
+            <p class="input0">COUNCIL TAX :</p>
+            <input type="number" id="exp2" class="input" placeholder="£:">
+            <input type="date" class="date">
+        </div> 
+        <div class="expense">
+            <p class="input0">UTILITIES :</p>
+            <input type="number" id="exp3" class="input" placeholder="£:">
+            <input type="date" class="date">
+        </div> 
+        <div class="expense">
+            <p class="input0">INTERNET/PHONE :</p>
+            <input type="number" id="exp4" class="input" placeholder="£:">
+            <input type="date" class="date">
+        </div> 
+        <div class="expense">
+            <p class="input0">CREDIT CARD :</p>
+            <input type="number" id="exp5" class="input" placeholder="£:">
+            <input type="date" class="date">
+        </div> 
+        <div class="expense">
+            <p class="input0">PERSONAL LOAN :</p>
+            <input type="number" id="exp6" class="input" placeholder="£:">
+            <input type="date" class="date">
+        </div> 
+        <div class="deposit">
+            <p class="input0">DEPOSIT :</p>
+            <input type="number" id="exp7" class="input" placeholder="£:">
+            <input type="date" class="date">
+        </div> 
+        <div class="total">
+            <div id="value1" class="value1">TOTAL EXPENSES :</div>
+            <div id="total" class="totvalue"></div>
+        </div>
+        <div class="leftover">
+            <div id="value2" class="value2">TOTAL LEFTOVER :</div>
+            <div id="left" class="leftvalue"></div>
+        </div>
+       
+                
+        <button type="submit" id="calc" class="calc">CALCULATE</button>
+        <button type="submit" id="return" class="return" onclick="window.location.href='main'">RETURN TO MAIN</button>
+        <button type="submit" id="reset" class="reset">RESET</button> 
+        <div id="myPlot" style="width:100%;max-width:700px"></div>    
+</div>
+
+
+    <script type="text/javascript" >
+    
+        document.getElementById("value1").style.display="none";
+        document.getElementById("value2").style.display="none";
+      var calcButton = document.getElementById('calc');
+      calcButton.addEventListener('click', function(){
+        document.getElementById("value1").style.display = '';
+        document.getElementById("value2").style.display = '';
+            var income = document.getElementById("income").value;
+            var expense1 = document.getElementById("exp1").value;
+            var expense2 = document.getElementById("exp2").value;
+            var expense3 = document.getElementById("exp3").value;
+            var expense4 = document.getElementById("exp4").value;
+            var expense5 = document.getElementById("exp5").value;
+            var expense6 = document.getElementById("exp6").value;
+            var expense7 = document.getElementById("exp7").value;
+            var exp1 = (parseInt(expense1)*100) / parseInt(income);
+            var exp2 = (parseInt(expense2)*100) / parseInt(income);
+            var exp3 = (parseInt(expense3)*100) / parseInt(income);
+            var exp4 = (parseInt(expense4)*100) / parseInt(income);
+            var exp5 = (parseInt(expense5)*100) / parseInt(income);
+            var exp6 = (parseInt(expense6)*100) / parseInt(income);
+            var exp7 = (parseInt(expense7)*100) / parseInt(income);
+           
+            
+            if(income.trim().length == 0 || expense1.trim().length == 0 || expense2.trim().length == 0 || expense3.trim().length == 0 || 
+            expense4.trim().length == 0 || expense5.trim().length == 0 || expense6.trim().length == 0 || expense7.trim().length == 0){
+                document.getElementById("total").innerText = "ERROR";
+                document.getElementById("left").innerText = "ERROR";
+                document.getElementById("left").style.color = "rgb(213, 36, 36)";
+                
+            }else{
+                var total = document.getElementById("total");
+                total = parseInt(expense1) + 
+                parseInt(expense2)+parseInt(expense3)+parseInt(expense4) 
+                +parseInt(expense5)+parseInt(expense6)+parseInt(expense7);
+                document.getElementById("total").innerText = "£: " + total;
+                var leftover = parseInt(income)-total;
+                document.getElementById("left").innerText  = "£: " + leftover;
+                document.getElementById("left").style.color = 'green';
+                
+                var left = (leftover*100)/parseInt(income);
+                
+                const xArray = ["Mortgage", "Council Tax", "Utilities", "Internet&Phone", "Credit Card", "Personal Loan", "Deposit", "Money Left"];
+                const yArray = [exp1, exp2, exp3, exp4, exp5, exp6, exp7, left];
+              
+                const layout = {title:"Budget"};
+
+                const data = [{labels:xArray, values:yArray, type:"pie"}];
+
+                Plotly.newPlot("myPlot", data, layout);
+            };
+
+      });
+
+      var resetButton = document.getElementById('reset');
+      resetButton.addEventListener('click', function(){
+            document.getElementById("value1").style.display ="none";
+            document.getElementById("value2").style.display ="none";
+            document.getElementById("total").innerText = "";
+            document.getElementById("left").innerText = "";
+            document.getElementById("income").value="none";
+            document.getElementById("exp1").value="none";
+            document.getElementById("exp2").value="none";
+            document.getElementById("exp3").value="none";
+            document.getElementById("exp4").value="none";
+            document.getElementById("exp5").value="none";
+            document.getElementById("exp6").value="none";
+            document.getElementById("exp7").value="none";
+            document.getElementById("myPlot") = "";
+      });  
+
+      
+
+    
+        
+    </script>
+</body>
+</html>

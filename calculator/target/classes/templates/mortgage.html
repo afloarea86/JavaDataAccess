@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="jquery-3.1.1.js"></script>
+    <link href="../static/css/mortgage.css" type="text/css" rel="stylesheet" th:href="@{/css/mortgage.css}">
+    <title>Mortgage Calculator</title>
+   
+</head>
+<body background="login_background.jpg">
+<div class="page">
+    <h1>MORTGAGE CALCULATOR</h1>
+
+        <div class="expense">
+            <p class="input0">PROPERTY PRICE :</p>
+            <input type="number" id="principal" class="input" placeholder="£:">
+        
+        </div>
+        <div class="expense">
+            <p class="input0">DEPOSIT :</p>
+            <input type="number" id="deposit" class="input" placeholder="£:">
+         
+        </div> 
+        <div class="expense">
+            <p class="input0">MORTGAGE TERM :</p>
+            <input type="number" id="term" class="input" placeholder="No. of years">
+        
+        </div> 
+        <div class="expense">
+            <p class="input0">INTEREST RATE :</p>
+            <input type="number" id="interest" class="input" placeholder="%">
+     
+        </div> 
+        <h3>Your Result:</h3>
+        <div class="total">
+            <div id="value1" class="value1">Your monthly payments will be :</div>
+            <div id="total" class="totvalue"></div>
+        </div>
+        <div class="leftover">
+            <div id="value2" class="value2">Your total loan repayment will be :</div>
+            <div id="left" class="leftvalue"></div>
+        </div>
+  
+                
+        <button type="submit" id="calc" class="calc">CALCULATE</button>
+        <button type="submit" id="return" class="return" onclick="window.location.href='main'">RETURN TO MAIN</button>
+        <button type="submit" id="reset" class="reset">RESET</button>
+        
+
+<script>
+        document.getElementById("value1").style.display="none";
+        document.getElementById("value2").style.display="none";
+
+        var calcButton = document.getElementById('calc');
+        calcButton.addEventListener('click', function(){
+        document.getElementById("value1").style.display = '';
+        document.getElementById("value2").style.display = '';
+            var principal = document.getElementById("principal").value;
+            var deposit = document.getElementById("deposit").value;
+            var term = document.getElementById("term").value;
+            var interest = document.getElementById("interest").value;
+            if(principal == 0 || deposit == 0 || term == 0 || interest == 0){
+                document.getElementById("total").innerText = 'ERROR';
+                document.getElementById("total").style.color = 'red';
+                document.getElementById("left").innerText = 'ERROR';
+                document.getElementById("left").style.color = 'red';
+
+            }else{
+                var total = document.getElementById("total");
+                var leftover = document.getElementById("left");
+                const payments = parseInt(term)*12;
+                const mrate = (parseFloat(interest)/12)/100;
+                const loan = parseInt(principal)-parseInt(deposit);
+                total = loan * ((mrate * Math.pow(1 + mrate, payments)) / (Math.pow(1+mrate,payments)-1));
+                leftover = loan +((parseFloat(interest/100)*loan)*term) ;
+
+
+                document.getElementById("total").innerText = "£: " + Math.round(total*100)/100;
+                document.getElementById("total").style.color = 'green';
+                document.getElementById("left").innerText  = "£: " + Math.round(leftover*100)/100;
+                document.getElementById("left").style.color = 'green';
+            };
+
+      });
+
+      var resetButton = document.getElementById('reset');
+      resetButton.addEventListener('click', function(){
+            document.getElementById("value1").style.display ="none";
+            document.getElementById("value2").style.display ="none";
+            document.getElementById("total").innerText = "";
+            document.getElementById("left").innerText = "";
+            document.getElementById("principal").value="none";
+            document.getElementById("deposit").value="none";
+            document.getElementById("term").value="none";
+            document.getElementById("interest").value="none";
+           
+      });     
+      
+</script>
+
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../static/css/salary.css" type="text/css" rel="stylesheet" th:href="@{/css/salary.css}">
+    <title>Salary Calculator</title>
+   
+</head>
+<body background="login_background.jpg">
+<div class="page">
+    <h1>SALARY CALCULATOR</h1>
+
+        <div class="salary">
+            <p class="input0">GROSS SALARY :</p>
+            <input type="number" id="salary" class="input" placeholder="£:">
+            <select name ="wage" id="wage">
+                <option id="yearly" value="yearly">Yearly</option>
+                <option id="monthly" value ="monthly">Monthly</option>
+            </select>
+           
+        </div>
+        <div class="expense">
+            <p class="input0">TAX CODE :</p>
+            <input type="number" id="code" class="input" placeholder="e.g: 1257">
+            <p id="fields" class="fields">* All input fields are mandatory!</p>
+        </div> 
+        <div class="salary">
+            <p class="input0">PENSION :</p>
+            <input type="number" id="pension" class="input" placeholder="%">
+
+        </div> 
+        
+        <h3>Your Result:</h3>
+        <div class="total">
+            <div id="value3" class="value1">Taxable Income :</div>
+            <div id="res1" class="res1"></div>
+        </div>
+        <div class="total">
+            <div id="value4" class="value1">Income Tax :</div>
+            <div id="res2" class="res2"></div>
+        </div>
+        <div class="total">
+            <div id="value5" class="value1">National Insurance :</div>
+            <div id="res3" class="res3"></div>
+        </div>
+        <div class="total">
+            <div id="value6" class="value1">Pension :</div>
+            <div id="res4" class="res4"></div>
+        </div>
+        <div class="total">
+            <div id="value1" class="value1">Your net yearly salary will be :</div>
+            <div id="total" class="totvalue"></div>
+        </div>
+        <div class="leftover">
+            <div id="value2" class="value2">Your net monthly salary will be :</div>
+            <div id="left" class="leftvalue"></div>
+        </div>
+  
+                
+        <button type="submit" id="calc" class="calc">CALCULATE</button>
+        <button type="submit" id="return" class="return" onclick="window.location.href='main'">RETURN TO MAIN</button>
+        <button type="submit" id="reset" class="reset">RESET</button>
+        <div id="myPlot" style="width:100%;max-width:700px"></div>  
+        
+
+<script>
+        document.getElementById("value1").style.display="none";
+        document.getElementById("value2").style.display="none";
+        document.getElementById("value3").style.display="none";
+        document.getElementById("value4").style.display="none";
+        document.getElementById("value5").style.display="none";
+        document.getElementById("value6").style.display="none";
+
+
+        var calcButton = document.getElementById('calc');
+        calcButton.addEventListener('click', function(){
+            
+            var salary = document.getElementById("salary").value;
+            var code = document.getElementById("code").value;
+            var pension = document.getElementById("pension").value;
+            var selection  = document.getElementById("wage").value;
+            
+                if(salary == 0 || code == 0 || pension.trim().length == 0){
+               
+                document.getElementById("salary").style.borderColor = 'red';
+                document.getElementById("code").style.borderColor = 'red';
+                document.getElementById("pension").style.borderColor = 'red';
+                document.getElementById("fields").style.display="";
+
+                }else if(selection == "yearly") {
+                    
+                document.getElementById("value1").style.display = '';
+                document.getElementById("value2").style.display="none";
+                document.getElementById("value3").style.display = '';
+                document.getElementById("value4").style.display = '';
+                document.getElementById("value5").style.display = '';
+                document.getElementById("value6").style.display = '';
+                var total = document.getElementById("total");
+                var leftover = document.getElementById("left");
+                var pensionCont = (parseFloat(pension)/100) * parseFloat(salary);
+                var salaryWithpension = parseFloat(salary)-parseFloat(pensionCont);
+                const flattax = parseFloat(salary)-(parseFloat(code)*10); 
+                const taxrate1 = 50270-(parseFloat(code)*10);
+                const taxrate2 = parseFloat(salaryWithpension)-50270;
+                const taxrate3 = parseFloat(salary)-50270;
+                const nirate = 37697.2;
+                    if(taxrate2 > 0){
+                        document.getElementById("res1").innerText = "£: " + Math.round((flattax-pensionCont) * 100)/100 ;
+                        document.getElementById("res2").innerText = "£: " + Math.round(((taxrate1*0.2 + taxrate2*0.4))*100)/100;
+                        document.getElementById("res3").innerText = "£: " + Math.round(((nirate*0.1 + taxrate3*0.02))*100)/100;
+                        document.getElementById("res4").innerText = "£: " + Math.round(pensionCont * 100)/100 ;
+                        total.innerText = "£: " + Math.round((salaryWithpension-(taxrate1*0.2 + taxrate2*0.4)-
+                        (nirate*0.1 + taxrate3*0.02)) *100) /100;
+                        leftover.innerText = "";
+
+                    }else{
+                        document.getElementById("res1").innerText = "£: " + Math.round((flattax-pensionCont) * 100)/100 ;
+                        document.getElementById("res2").innerText = "£: " + Math.round((flattax*0.2)*100)/100;
+                        document.getElementById("res3").innerText = "£: " + Math.round((flattax*0.1)*100)/100;
+                        document.getElementById("res4").innerText = "£: " + Math.round(pensionCont * 100)/100;
+                        total.innerText = "£: " + Math.round((salaryWithpension-(flattax*0.3))*100)/100;
+                        leftover.innerText = "";     
+                    }
+                        total.style.color = ' rgb(11, 176, 14)';
+                        leftover.style.color = ' rgb(11, 176, 14)';
+                        document.getElementById("res1").style.color = "black";
+                        document.getElementById("res2").style.color = "black";
+                        document.getElementById("res3").style.color = "black";
+                        document.getElementById("res4").style.color = "black";
+            }else if(selection == "monthly" ){
+                document.getElementById("value1").style.display="none";
+                document.getElementById("value2").style.display = '';
+                document.getElementById("value3").style.display = '';
+                document.getElementById("value4").style.display = '';
+                document.getElementById("value5").style.display = '';
+                document.getElementById("value6").style.display = '';
+                var total = document.getElementById("total");
+                var leftover = document.getElementById("left");
+                var pensionCont = (parseFloat(pension)/100) * parseFloat(salary);
+                var salaryWithpension = parseFloat(salary)-parseFloat(pensionCont);
+                const flattax = parseFloat(salary)-((parseFloat(code)*10))/12; 
+                const taxrate1 = Math.round((50270/12)*100)/100-((parseFloat(code)*10)/12);
+                const taxrate2 = parseFloat(salaryWithpension)-Math.round((50270/12)*100)/100;
+                const taxrate3 = parseFloat(salary)-Math.round((50270/12)*100)/100;
+                const nirate = 37697.2/12;
+                    if(taxrate2 > 0){
+                        document.getElementById("res1").innerText = "£: " + Math.round((flattax-pensionCont) * 100)/100 ;
+                        document.getElementById("res2").innerText = "£: " + Math.round(((taxrate1*0.2 + taxrate2*0.4))*100)/100;
+                        document.getElementById("res3").innerText = "£: " + Math.round(((nirate*0.1 + taxrate3*0.02))*100)/100;
+                        document.getElementById("res4").innerText = "£: " + Math.round(pensionCont * 100)/100 ;
+                        total.innerText = "";
+                        leftover.innerText = "£: " + Math.round(((salaryWithpension-(taxrate1*0.2 + taxrate2*0.4)-
+                        (nirate*0.1 + taxrate3*0.02)))*100)/100;
+                    }else{
+                        document.getElementById("res1").innerText = "£: " + Math.round((flattax-pensionCont) * 100)/100 ;
+                        document.getElementById("res2").innerText = "£: " + Math.round((flattax*0.2)*100)/100;
+                        document.getElementById("res3").innerText = "£: " + Math.round((flattax*0.1)*100)/100;
+                        document.getElementById("res4").innerText = "£: " + Math.round(pensionCont * 100)/100;
+                        total.innerText = "";
+                        leftover.innerText = "£: " + Math.round((salaryWithpension-(flattax*0.3))*100)/100;
+                        
+                    }
+                        total.style.color = ' rgb(11, 176, 14)';
+                        leftover.style.color = ' rgb(11, 176, 14)';
+                        document.getElementById("res1").style.color = "black";
+                        document.getElementById("res2").style.color = "black";
+                        document.getElementById("res3").style.color = "black";
+                        document.getElementById("res4").style.color = "black";
+            };
+
+      });
+
+      var resetButton = document.getElementById('reset');
+      resetButton.addEventListener('click', function(){
+            document.getElementById("value1").style.display ="none";
+            document.getElementById("value2").style.display ="none";
+            document.getElementById("value3").style.display ="none";
+            document.getElementById("value4").style.display ="none";
+            document.getElementById("value5").style.display ="none";
+            document.getElementById("value6").style.display ="none";
+            document.getElementById("salary").style.borderColor = '';
+            document.getElementById("code").style.borderColor = '';
+            document.getElementById("pension").style.borderColor = '';
+            document.getElementById("fields").style.display="none";
+            document.getElementById("total").innerText = "";
+            document.getElementById("left").innerText = "";
+            document.getElementById("res1").innerText = "";
+            document.getElementById("res2").innerText = "";
+            document.getElementById("res3").innerText = "";
+            document.getElementById("res4").innerText = "";
+            document.getElementById("salary").value="none";
+            document.getElementById("code").value="none";
+            document.getElementById("pension").value="none";
+            
+         
+           
+      });  
+
+
+       
+</script>
+
+</body>
+</html>
